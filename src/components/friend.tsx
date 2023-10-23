@@ -12,13 +12,13 @@ export default function Friend({ friend, onHandleSelectFriend }: FriendProps) {
   } else if (friend.owes < 0) {
     infoElement = (
       <p className="green">
-        {friend.name} owes you {Math.abs(friend.owes)} €
+        {friend.name} owes you {Math.abs(friend.owes)}€
       </p>
     );
   } else {
     infoElement = (
       <p className="red">
-        You owe {friend.name} {Math.abs(friend.owes)} €
+        You owe {friend.name} {Math.abs(friend.owes)}€
       </p>
     );
   }

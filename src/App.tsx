@@ -29,12 +29,15 @@ export default function App() {
     setFriendsList((friendsList) =>
       friendsList.map((friend) => {
         if (friend.id === id) {
-          return { ...friend, owes: friend.owes + amount };
+          return { ...friend, owes: friend.owes + amount, selected: false };
         } else {
           return { ...friend };
         }
       })
     );
+    if (selectedFriend !== undefined) {
+      setSelectedFriend({ ...selectedFriend, selected: false });
+    }
   }
 
   return (

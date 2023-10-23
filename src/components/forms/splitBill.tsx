@@ -10,7 +10,6 @@ export default function SplitBill({
 }) {
   const [billValue, setBillValue] = useState("");
   const [yourExpense, setYourExpense] = useState("");
-  const [friendsExpense, setFriendsExpense] = useState("");
   const [whoPaid, setWhoPaid] = useState("you");
 
   function setValue(inputValue: string, setStateFunc: (value: React.SetStateAction<string>) => void) {
@@ -46,12 +45,14 @@ export default function SplitBill({
 
   function handleSplitBill(e: FormEvent) {
     e.preventDefault();
+    setYourExpense("");
+    setBillValue("");
+    setWhoPaid("you");
 
     if (whoPaid === "you") {
       onHandleSplitBill(selectedFriend.id, -(+billValue - +yourExpense));
     } else if (whoPaid === "friend") {
-      console.log(`${whoPaid} paid ${+billValue - +yourExpense}`);
-      onHandleSplitBill(selectedFriend.id, +billValue);
+      onHandleSplitBill(selectedFriend.id, +yourExpense);
     }
   }
 
@@ -70,7 +71,7 @@ export default function SplitBill({
           <input type="number" value={yourExpense} onChange={(e) => handleYourExpense(e)} />
 
           <label>👫 {selectedFriend.name}'s expense</label>
-          <input type="number" disabled value={friendsExpense} />
+          <input type="number" disabled value={billValue ? +billValue - +yourExpense : ""} />
 
           <label>🤑 Who is paying the bill</label>
           <select value={whoPaid} onChange={(e) => handleWhoPaid(e)}>
